@@ -1,2 +1,2 @@
 # PythonLearning
-The purpose of this project is lear Python
+The purpose of this project is learn Python
