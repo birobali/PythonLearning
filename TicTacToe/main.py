@@ -1,3 +1,5 @@
+import os
+
 def main():
     if input('Do you want to play Tic-tac-toe? (yes/no): ') == 'no':
         return
@@ -7,17 +9,24 @@ def main():
 
 
 def play(players):
+
     display_board(help_standing())
     last_step = 'player2'
     standing = init_standing()
-    while not is_somebody_won(standing):
+
+    round = 0
+    while not is_somebody_won(standing) and round < 9:
+        round += 1
         player_name = players['player1']['name'] if last_step == 'player2' else players['player2']['name']
         inp = check_field_is_taken(standing, player_name)
         last_step = 'player1' if last_step == 'player2' else 'player2'
         standing[inp] = players[last_step]['sign']
         display_board(standing)
     else:
-        print(f'Congratulation {players[last_step]["name"]} won!')
+        if is_somebody_won(standing):
+            print(f'Congratulation {players[last_step]["name"]} won!')
+        else:
+            print('Tie!')
         if input('Do you want to play once more? (yes/no): ') == 'yes':
             play(players)
 
@@ -38,7 +47,6 @@ def help_standing():
 
 def init_standing():
     return {1: ' ', 2: ' ', 3: ' ', 4: ' ', 5: ' ', 6: ' ', 7: ' ', 8: ' ', 9: ' '}
-
 
 def is_somebody_won(standing):
 
