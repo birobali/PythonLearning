@@ -12,7 +12,7 @@ def play(players):
     standing = init_standing()
     while not is_somebody_won(standing):
         player_name = players['player1']['name'] if last_step == 'player2' else players['player2']['name']
-        inp = int(input(f'{player_name}\'s turn. Please choose a field from 1-9: '))
+        inp = check_field_is_taken(standing, player_name)
         last_step = 'player1' if last_step == 'player2' else 'player2'
         standing[inp] = players[last_step]['sign']
         display_board(standing)
@@ -20,6 +20,16 @@ def play(players):
         print(f'Congratulation {players[last_step]["name"]} won!')
         if input('Do you want to play once more? (yes/no): ') == 'yes':
             play(players)
+
+
+def check_field_is_taken(standing, player_name):
+
+    inp = int(input(f'{player_name}\'s turn. Please choose a field from 1-9: '))
+    if standing[inp] == ' ':
+        return inp
+    else:
+        print(f'Field {inp} is already taken!')
+        return check_field_is_taken(standing, player_name)
 
 
 def help_standing():
