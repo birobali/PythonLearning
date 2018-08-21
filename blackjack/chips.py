@@ -15,12 +15,15 @@ class Chips:
                 bet = int(input(f'You have {self.total} chips, please take your bet: '))
                 if bet > self.total:
                     raise ValueError('Your bet is bigger than your total!')
+                else:
+                    self.bet = int(bet)
+                    self.total = self.total - self.bet
                 break
             except ValueError as e:
                 print(str(e))
 
     def win_bet(self):
-        self.total += self.bet
+        self.total += self.bet * 2
 
     def lose_bet(self):
         self.total -= self.bet
